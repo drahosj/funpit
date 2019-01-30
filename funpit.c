@@ -79,6 +79,8 @@ int main()
 			dump_file(choose2d(ascii_art));
 		} else if (!strncmp("su", tok, 2)) {
 			dump_file("jurrasic.txt");
+		} else if (!strncmp("ex", tok, 2)) {
+			dump_file("forever.txt");
 		} else {
 			if (rand() % 3) {
 				dump_file(choose2d(ascii_art));
