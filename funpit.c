@@ -43,6 +43,7 @@ static char * hostnames[] = {
 static char * ascii_art[] = {
 	"owl.txt",
 	"owl2.txt",
+	"funpit.txt",
 	NULL
 };
 
@@ -61,10 +62,6 @@ int main()
 	char * line = NULL;
 	size_t linelen = 0;
 	for (size_t i = 0; i < 32; i++) {
-		if (i > 3 ) {
-			dump_file("funpit.txt");
-		}
-
 		fputs(prompt, stdout);
 
 		ssize_t len = getline(&line, &linelen, stdin);
