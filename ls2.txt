@@ -1,0 +1,8 @@
+.bash_history
+.bash_prompt
+.bashrc
+.cache
+.config
+.local
+.ssh
+.mysql_history
