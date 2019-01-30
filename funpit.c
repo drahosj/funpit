@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <signal.h>
 
 #define BAIL() exit(1)
 
@@ -12,6 +13,7 @@ void setup(void);
 void dump_file(char *);
 size_t count2d(char ** arr);
 char * choose2d(char ** arr);
+void forever(int, siginfo_t *, void *);
 
 static char * usernames[] = {
 	"root",
@@ -51,6 +53,12 @@ int main()
 {
 	srand(time(NULL));
 
+	struct sigaction action;
+	action.sa_sigaction = &forever;
+
+	sigaction(SIGINT, &action, NULL);
+	sigaction(SIGQUIT, &action, NULL);
+
 	int root = !(rand() % 8);
 	char * hostname = choose2d(hostnames);
 	char * username = root ? usernames[0] : choose2d(usernames);
@@ -68,6 +76,10 @@ int main()
 		if (len < 0) {
 			perror("getline");
 			BAIL();
+		}
+
+		if (strlen(line) == 1 ){
+			continue;
 		}
 
 		line[strlen(line) - 1] = '\0';
@@ -127,4 +139,9 @@ char * choose2d(char ** arr)
 	n = rand() % n;
 
 	return arr[n];
+}
+
+void forever(int sig, siginfo_t * si, void * arg)
+{
+	dump_file("forever.txt");
 }
